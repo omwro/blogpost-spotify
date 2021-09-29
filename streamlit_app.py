@@ -4,6 +4,10 @@ import plotly.express as px
 import spotipy
 from IPython.core.display import display
 from spotipy.oauth2 import SpotifyClientCredentials
+import streamlit as st
+
+# Streamlit title
+st.title("Spotify blog 3-15")
 
 # Maak een Spotify object instantie van de SpotiPy package.
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
@@ -30,7 +34,7 @@ fig.update_layout(title="Totaal aantal volgers van de top 20 meest gevolgde arti
                   yaxis_title='Artiest namen',
                   xaxis_title="Totaal aantal volgers in Miljoenen<br>Bron:<a href='https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify'>Wikipedia</a>")
 fig.update_xaxes(range=[30_000_000, 90_000_000])
-fig.show()
+st.plotly_chart(fig)
 
 # Een lijn plot waarbij de populariteit wordt weergeven van de artiesten.
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
@@ -45,7 +49,7 @@ fig.update_layout(title="Populariteit van de top 20 meest gevolgde artiesten",
                   yaxis_title='Artiest namen',
                   xaxis_title="Populariteit van artiesten in Spotify")
 fig.update_traces(textposition="bottom right")
-fig.show()
+st.plotly_chart(fig)
 
 # Een pie plot waarbij het hoofd genre wordt weergeven dan de artiesten.
 df_artists['main_genre'] = None
@@ -64,4 +68,4 @@ fig = px.pie(df_artist_main_genre,
 fig.update_layout(title="De hoofd genres van de top 20 meest gevolgde artiesten")
 fig.update_traces(textposition='inside',
                   textinfo='value+percent')
-fig.show()
+st.plotly_chart(fig)
