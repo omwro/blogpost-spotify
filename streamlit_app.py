@@ -181,7 +181,7 @@ for features in features:
                  'bgcolor': 'rgb(255, 79, 79)', 'borderwidth': 5}
     # Update the figure
     fig.update_layout({'showlegend': True, 'legend': my_legend},
-                      title="Change in audio features throughout the years (1946-2021)")
+                      title="Veranderingen in audio eigenschappen van #1 hits door de jaren heen (1946-2021)")
     fig.update_layout(hovermode="y")
 
 sliders = [
