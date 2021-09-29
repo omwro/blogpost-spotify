@@ -198,6 +198,146 @@ fig.update_layout({'sliders': sliders})
 
 st.plotly_chart(fig)
 
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+st.markdown("## Emmelotte")
+
+df_spotify = pd.read_csv('Spotify-2000.csv')
+print(df_spotify)
+
+print(df_spotify['Top Genre'])
+
+print(df_spotify['Top Genre'].describe())
+
+df_spotify.value_counts(["Top Genre"])[df_spotify.value_counts(["Top Genre"]) >= 5]
+
+print(df_spotify['Top Genre'].unique())
+df_spotify['Genre category'] = None
+
+# ROCK
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "rock" if "rock" in song['Top Genre'] else song['Top Genre'], axis=1)
+
+# POP
+df_spotify['Genre category'] = df_spotify.apply(lambda song: "pop" if "pop" in song['Top Genre'] else song['Top Genre'],
+                                                axis=1)
+
+# HIP-HOP
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "hip-hop" if "hip hop" in song['Top Genre'] else song['Top Genre'], axis=1)
+
+print(df_spotify)
+
+print(df_spotify['Genre category'])
+
+df_spotify['Genre category'] = None
+
+# ROCK
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "rock" if "rock" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "rock" if "indie" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# POP
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "pop" if "pop" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "pop" if "adult standards" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "pop" if "permanent wave" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "pop" if "boy band" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "pop" if "neo mellow" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# HIP-HOP
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "hip-hop" if "hip hop" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "hip-hop" if "g funk" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# JAZZ
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "jazz" if "jazz" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "jazz" if "bebop" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "jazz" if "dutch cabaret" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "jazz" if "soul" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "jazz" if "disco" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# METAL
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "metal" if "metal" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# RAP
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "rap" if "rap" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# CLASSIC
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "classical" if "classic" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# BLUES
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "blues" if "folk" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "blues" if "americana" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# HOUSE
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "house" if "big room" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "house" if "house" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "house" if "trance" in song['Top Genre'] else song['Genre category'], axis=1)
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "house" if "edm" in song['Top Genre'] else song['Genre category'], axis=1)
+
+# OTHER
+df_spotify['Genre category'] = df_spotify.apply(
+    lambda song: "other" if song['Genre category'] is None else song['Genre category'], axis=1)
+
+print(df_spotify['Genre category'].unique())
+
+print(df_spotify['Genre category'])
+
+list(df_spotify['Genre category'].unique())
+
+fig = go.Figure()
+
+features = ['Popularity', 'Loudness (dB)', 'Danceability', 'Valence', 'Speechiness', 'Energy']
+
+color = {'pop': 'rgb(227, 119, 194)', 'rock': 'rgb(127, 127, 127)', 'hip-hop': 'rgb(255, 127, 14)',
+         'metal': 'rgb(150, 190, 170)', 'classical': 'rgb(255, 64, 64)', 'jazz': 'rgb(100, 149, 237)',
+         'blues': 'rgb(191, 62, 255)', 'house': 'rgb(255, 215, 0)', 'rap': 'rgb(3, 3, 3)', 'other': 'rgb(192, 255, 62)'}
+
+for features in features:
+    genres = df_spotify[features]
+    fig.add_trace(go.Box(x=df_spotify['Genre category'], y=genres, name=features, fillcolor=color))
+
+dropdown_spotify = [
+    {'label': 'Popularity', 'method': 'update', 'args': [{'visible': [True, False, False, False, False, False]},
+                                                         {'title': 'Popularity'}]},
+    {'label': 'Loudness (dB)', 'method': 'update', 'args': [{'visible': [False, True, False, False, False, False]},
+                                                            {'title': 'Loudness (dB)'}]},
+    {'label': 'Danceability', 'method': 'update', 'args': [{'visible': [False, False, True, False, False, False]},
+                                                           {'title': 'Danceability'}]},
+    {'label': 'Valence', 'method': 'update', 'args': [{'visible': [False, False, False, True, False, False]},
+                                                      {'title': 'Valence'}]},
+    {'label': 'Speechiness', 'method': 'update', 'args': [{'visible': [False, False, False, False, True, False]},
+                                                          {'title': 'Speechiness'}]},
+    {'label': 'Energy', 'method': 'update', 'args': [{'visible': [False, False, False, False, False, True]},
+                                                     {'title': 'Energy'}]},
+]
+
+fig.update_layout({'updatemenus': [
+    {'type': 'dropdown', 'x': 1.2, 'y': 0.2, 'showactive': True, 'active': 0, 'buttons': dropdown_spotify}]})
+
+st.plotly_chart(fig)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
