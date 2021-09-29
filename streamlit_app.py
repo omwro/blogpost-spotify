@@ -15,6 +15,28 @@ from itertools import cycle
 st.title("Spotify blog")
 st.caption("Klas 3 - Groep 15 - Leden: Nassim, Omer, Max, Emmelotte")
 
+st.markdown("#### API & CSV")
+st.markdown("We maken gebruik van de "
+            "[Spotify API](https://developer.spotify.com/documentation/web-api/reference/) "
+            "om alle data op te halen. Als package gebruiken we "
+            "[SpotiPy](https://spotipy.readthedocs.io/en/2.19.0/?highlight=artist#welcome-to-spotipy) "
+            "om gemakkelijk via python de requesten te sturen naar de spotify server. Vervolgens gebruiken we "
+            "[Wikipedia](https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify) "
+            "om de top 20 artiesten te vinden en daarvan een speciaal gemaakt csv file te maken. Daarnaast gebruiken "
+            "we ook een dataset van [kaggle](https://www.kaggle.com/iamsumat/spotify-top-2000s-mega-dataset) "
+            "voor de top 2000 nummer van altijd.")
+
+st.markdown("#### Kwaliteit")
+st.markdown("We maken gebruik van de officiële spotify api en weten dat dit aan hoge kwaliteitstandaarden houdt. "
+            "Ook gebruiken we CSV datasets die vooraf zijn gecontroleerd op de datakwaliteit en of de data binnen de "
+            "dataset relevant is voor onze geval, zoals de nummer eigenschappen. Ons enige probleem is dat streamlit "
+            "paar momenten kan nemen om alle api requesten te sturen en ontvangen.")
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------------------------------
+
 # Maak een Spotify object instantie van de SpotiPy package.
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
     client_id='5f222d8ae8c744f6815d314bba7709ab',
