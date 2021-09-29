@@ -9,6 +9,7 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import streamlit as st
 import plotly.graph_objects as go
 import json
+from itertools import cycle
 
 # Streamlit title
 st.title("Spotify blog")
@@ -206,11 +207,7 @@ st.markdown("## Emmelotte")
 df_spotify = pd.read_csv('Spotify-2000.csv')
 print(df_spotify)
 
-print(df_spotify['Top Genre'])
-
 print(df_spotify['Top Genre'].describe())
-
-df_spotify.value_counts(["Top Genre"])[df_spotify.value_counts(["Top Genre"]) >= 5]
 
 print(df_spotify['Top Genre'].unique())
 df_spotify['Genre category'] = None
@@ -303,21 +300,17 @@ df_spotify['Genre category'] = df_spotify.apply(
 
 print(df_spotify['Genre category'].unique())
 
-print(df_spotify['Genre category'])
-
-list(df_spotify['Genre category'].unique())
-
 fig = go.Figure()
 
 features = ['Popularity', 'Loudness (dB)', 'Danceability', 'Valence', 'Speechiness', 'Energy']
 
-color = {'pop': 'rgb(227, 119, 194)', 'rock': 'rgb(127, 127, 127)', 'hip-hop': 'rgb(255, 127, 14)',
-         'metal': 'rgb(150, 190, 170)', 'classical': 'rgb(255, 64, 64)', 'jazz': 'rgb(100, 149, 237)',
-         'blues': 'rgb(191, 62, 255)', 'house': 'rgb(255, 215, 0)', 'rap': 'rgb(3, 3, 3)', 'other': 'rgb(192, 255, 62)'}
+colors = cycle(
+    ['rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(255, 127, 14)', 'rgb(150, 190, 170)', 'rgb(255, 64, 64)',
+     'rgb(100, 149, 237)'])
 
-for features in features:
-    genres = df_spotify[features]
-    fig.add_trace(go.Box(x=df_spotify['Genre category'], y=genres, name=features, fillcolor=color))
+for feature in features:
+    genres = df_spotify[feature]
+    fig.add_trace(go.Box(x=df_spotify['Genre category'], y=genres, name=feature, marker_color=next(colors)))
 
 dropdown_spotify = [
     {'label': 'Popularity', 'method': 'update', 'args': [{'visible': [True, False, False, False, False, False]},
@@ -336,8 +329,46 @@ dropdown_spotify = [
 
 fig.update_layout({'updatemenus': [
     {'type': 'dropdown', 'x': 1.2, 'y': 0.2, 'showactive': True, 'active': 0, 'buttons': dropdown_spotify}]})
+fig.update_layout(showlegend=True)
 
 st.plotly_chart(fig)
+
+
+fig = go.Figure()
+
+colors = cycle(
+    ['rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(255, 127, 14)', 'rgb(150, 190, 170)', 'rgb(255, 64, 64)',
+     'rgb(100, 149, 237)'])
+
+for feature in features:
+    genres1 = df_spotify[feature]
+    fig.add_trace(go.Bar(x=df_spotify['Genre category'], y=genres1, name=feature, marker_color=next(colors)))
+
+dropdown_spotify = [
+    {'label': 'Popularity', 'method': 'update', 'args': [{'visible': [True, False, False, False, False, False]},
+                                                         {'title': 'Popularity'}]},
+    {'label': 'Loudness (dB)', 'method': 'update', 'args': [{'visible': [False, True, False, False, False, False]},
+                                                            {'title': 'Loudness (dB)'}]},
+    {'label': 'Danceability', 'method': 'update', 'args': [{'visible': [False, False, True, False, False, False]},
+                                                           {'title': 'Danceability'}]},
+    {'label': 'Valence', 'method': 'update', 'args': [{'visible': [False, False, False, True, False, False]},
+                                                      {'title': 'Valence'}]},
+    {'label': 'Speechiness', 'method': 'update', 'args': [{'visible': [False, False, False, False, True, False]},
+                                                          {'title': 'Speechiness'}]},
+    {'label': 'Energy', 'method': 'update', 'args': [{'visible': [False, False, False, False, False, True]},
+                                                     {'title': 'Energy'}]},
+]
+
+fig.update_layout({'updatemenus': [
+    {'type': 'dropdown', 'x': 1.2, 'y': 0.2, 'showactive': True, 'active': 0, 'buttons': dropdown_spotify}]})
+fig.update_layout(showlegend=True)
+fig.update_traces(marker_line_width=0)
+
+st.plotly_chart(fig)
+
+sum_loudness = sum(df_spotify['Loudness (dB)'])
+
+print(sum_loudness)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
