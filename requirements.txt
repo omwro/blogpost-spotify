@@ -1,0 +1,4 @@
+pandas==1.2.4
+plotly==5.1.0
+spotipy==2.19.0
+IPython==7.22.0
