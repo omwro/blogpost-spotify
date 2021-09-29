@@ -82,7 +82,7 @@ st.plotly_chart(fig)
 # ----------------------------------------------------------------------------------------------------------------------
 st.markdown("## Eigenschappen van de topnummers")
 
-st.markdown("### In de onderstaande grafiek zijn de ontwikkelingen in audio eigenschappen door de jaren heen te zien. De nummers in deze grafiek zijn de #1 Year-End Songs van Billboard tussen 1946 en 2021.")
+st.markdown("##### In de onderstaande grafiek zijn de ontwikkelingen in audio eigenschappen door de jaren heen te zien. De nummers in deze grafiek zijn de #1 Year-End Songs van Billboard tussen 1946 en 2021.")
 
 playlistURL = 'https://open.spotify.com/playlist/596TVWnQdvHEeYyKUXkpDL?si=d36cdf733a8945c5'
 
