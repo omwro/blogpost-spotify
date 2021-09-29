@@ -176,7 +176,7 @@ for features in features:
 
     # Add the legend
     my_legend = {'x': 1, 'y': 0,
-                 'bgcolor': 'rgb(237, 219, 180)', 'borderwidth': 5}
+                 'bgcolor': 'rgb(255, 79, 79)', 'borderwidth': 5}
     # Update the figure
     fig.update_layout({'showlegend': True, 'legend': my_legend},
                       title="Change in audio features throughout the years (1946-2021)")
