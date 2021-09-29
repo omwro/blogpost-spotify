@@ -202,7 +202,7 @@ st.plotly_chart(fig)
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
-st.markdown("## Emmelotte")
+st.markdown("## Top 2000")
 
 df_spotify = pd.read_csv('Spotify-2000.csv')
 print(df_spotify)
@@ -330,9 +330,10 @@ dropdown_spotify = [
 fig.update_layout({'updatemenus': [
     {'type': 'dropdown', 'x': 1.2, 'y': 0.2, 'showactive': True, 'active': 0, 'buttons': dropdown_spotify}]})
 fig.update_layout(showlegend=True)
+fig.update_xaxes(title='genre')
 
+st.markdown("#### Boxplot genres top 2000")
 st.plotly_chart(fig)
-
 
 fig = go.Figure()
 
@@ -362,7 +363,11 @@ dropdown_spotify = [
 fig.update_layout({'updatemenus': [
     {'type': 'dropdown', 'x': 1.2, 'y': 0.2, 'showactive': True, 'active': 0, 'buttons': dropdown_spotify}]})
 fig.update_layout(showlegend=True)
+fig.update_xaxes(title='genre')
+fig.update_yaxes(title='sum')
 fig.update_traces(marker_line_width=0)
+
+st.markdown("#### Barchart genres top 2000")
 
 st.plotly_chart(fig)
 
@@ -459,7 +464,6 @@ for i, v in enumerate(height):
 plt.title("Top 10 meest voorkomende tracks", fontsize=16)
 
 st.plotly_chart(plt)
-
 
 # Alle unieke ALbums in de dataframe op een rij
 data_df["Album"].unique()
