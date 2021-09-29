@@ -3,3 +3,5 @@ plotly==5.1.0
 spotipy==2.19.0
 IPython==7.22.0
 streamlit==0.89.0
+matplotlib~=3.4.3
+numpy~=1.21.2
