@@ -77,12 +77,13 @@ fig.update_layout(title="Totaal aantal volgers van de top 20 meest gevolgde arti
 fig.update_xaxes(range=[30_000_000, 90_000_000])
 if check1:
     st.plotly_chart(fig)
-
+    st.markdown("```\nfig = px.bar(df_artists, x='followers.total', y=df_artists.index, color='followers.total',labels={'followers.total': 'Totaal aantal volgers'})"
+                "\nfig.update_layout(title='Totaal aantal volgers van de top 20 meest gevolgde artiesten', yaxis_title='Artiest namen', xaxis_title='Totaal aantal volgers in Miljoenen<br>Bron:<a href='https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify'>Wikipedia</a>')"
+                "\nfig.update_xaxes(range=[30_000_000, 90_000_000])```")
+    st.markdown("##### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
 # Een lijn plot waarbij de populariteit wordt weergeven van de artiesten.
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
 
-#CHECK HIER !!!!
-st.markdown("##### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
 fig = px.line(df_artists,
               x='popularity',
               y=df_artists.index,
@@ -96,6 +97,7 @@ fig.update_layout(title="Populariteit van de top 20 meest gevolgde artiesten",
 fig.update_traces(textposition="bottom right")
 if check1:
     st.plotly_chart(fig)
+    # st.markdown("``````")
 
 # Een pie plot waarbij het hoofd genre wordt weergeven dan de artiesten.
 df_artists['main_genre'] = None
