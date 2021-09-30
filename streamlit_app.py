@@ -148,7 +148,7 @@ if check2:
                  "\n		'bgcolor': 'rgb(255, 79, 79)', 'borderwidth': 5}"
                  "\n	fig.update_layout({'showlegend': True, 'legend': my_legend},"
                  "\n		title='Veranderingen in audio eigenschappen van #1 hits door de jaren heen (1946-2021)')"
-                 "\n	fig.update_layout(hovermode="y")```")
+                 "\n	fig.update_layout(hovermode='y')```")
 
 playlistURL = 'https://open.spotify.com/playlist/596TVWnQdvHEeYyKUXkpDL?si=d36cdf733a8945c5'
 
