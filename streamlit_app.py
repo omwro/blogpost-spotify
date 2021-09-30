@@ -62,7 +62,7 @@ display(df_artists.head())
 # ----------------------------------------------------------------------------------------------------------------------
 if check1:
     st.markdown("## Top 20 meest gevolgde artiesten")
-    st.markdown("####### In de onderstaande bar chart zijn de top 20 artiesten te zien met de meeste volgers op Spotify.")
+    st.markdown("##### In de onderstaande bar chart zijn de top 20 artiesten te zien met de meeste volgers op Spotify.")
 # Een bar plot waarbij het totaal aantal volgers wordt weergeven van de artiesten.
 fig = px.bar(df_artists,
              x='followers.total',
@@ -80,7 +80,7 @@ if check1:
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
 
 #CHECK HIER !!!!
-st.markdown("####### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
+st.markdown("##### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
 fig = px.line(df_artists,
               x='popularity',
               y=df_artists.index,
@@ -373,7 +373,7 @@ fig.update_xaxes(title='genre')
 
 if check3:
     st.markdown("#### Boxplot genres top 2000")
-    st.markdown("####### De onderstaande boxplots geven de verschillen in audio eigenschappen tussen verschillende genres weer.")
+    st.markdown("##### De onderstaande boxplots geven de verschillen in audio eigenschappen tussen verschillende genres weer.")
     st.plotly_chart(fig)
 
 fig = go.Figure()
@@ -410,7 +410,7 @@ fig.update_traces(marker_line_width=0)
 
 if check3:
     st.markdown("#### Barchart genres top 2000")
-    st.markdown("####### De onderstaande bar chart geeft de verschillen in audio eigenschappen tussen verschillende genres weer.")
+    st.markdown("##### De onderstaande bar chart geeft de verschillen in audio eigenschappen tussen verschillende genres weer.")
     st.plotly_chart(fig)
 
 sum_loudness = sum(df_spotify['Loudness (dB)'])
