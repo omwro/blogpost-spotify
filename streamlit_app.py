@@ -136,7 +136,19 @@ if check2:
                  "\n	data3 = json.load(open('data.json'))"
                  "\n	itemDF = pd.DataFrame(data3)"
                  "\n	trackID = itemDF['track'].loc['uri']" 
-		 "\n	IDlist.append(trackID)```")
+		 "\n	IDlist.append(trackID)"
+		 "\n"	
+                 "\n"
+                 "\nfeatures = ['danceability', 'energy', 'loudness', 'acousticness', 'tempo']"
+                 "\n"
+                 "\nfor features in features:"
+                 "\n	tempDF = allSongsDF[features]"  
+		 "\n	fig.add_trace(go.Scatter(x=allSongsDF['year'], y=tempDF, name=features, mode='markers'))"
+		 "\n	my_legend = {'x': 1, 'y': 0,"	
+                 "\n		'bgcolor': 'rgb(255, 79, 79)', 'borderwidth': 5}"
+                 "\n	fig.update_layout({'showlegend': True, 'legend': my_legend},"
+                 "\n		title='Veranderingen in audio eigenschappen van #1 hits door de jaren heen (1946-2021)')"
+                 "\n	fig.update_layout(hovermode="y")```")
 
 playlistURL = 'https://open.spotify.com/playlist/596TVWnQdvHEeYyKUXkpDL?si=d36cdf733a8945c5'
 
