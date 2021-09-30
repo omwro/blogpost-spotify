@@ -407,6 +407,12 @@ fig.update_xaxes(title='genre')
 if check3:
     st.markdown("#### Boxplot genres top 2000")
     st.markdown("##### De onderstaande boxplots geven de verschillen in audio eigenschappen tussen verschillende genres weer.")
+    st.markdown("```features = ['Popularity', 'Loudness (dB)', 'Danceability', 'Valence', 'Speechiness', 'Energy']	
+                 "\ncolors = cycle("
+                 "\n	['rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(255, 127, 14)', 'rgb(150, 190, 170)', 'rgb(255, 64, 64)', 'rgb(100, 149, 237)'])"
+                 "\nfor feature in features:"
+                 "\n	genres = df_spotify[feature]"
+                 "\n	fig.add_trace(go.Box(x=df_spotify['Genre category'], y=genres, name=feature, marker_color=next(colors)))```") 
     st.plotly_chart(fig)
 
 fig = go.Figure()
