@@ -33,6 +33,11 @@ st.markdown("We maken gebruik van de officiële spotify api en weten dat dit aan
             "paar momenten kan nemen om alle api requesten te sturen en ontvangen.")
 
 
+st.markdown("#### Toon/verberg secties")
+check1 = st.checkbox('Top 20 artiesten', True)
+check2 = st.checkbox('Nummer eigenschappen', True)
+check3 = st.checkbox('Top 2.000 nummers', True)
+check4 = st.checkbox('Top 50 nummers buitenland', True)
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -55,7 +60,8 @@ display(df_artists.head())
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
-st.markdown("## Top 20 meest gevolgde artiesten")
+if check1:
+    st.markdown("## Top 20 meest gevolgde artiesten")
 # Een bar plot waarbij het totaal aantal volgers wordt weergeven van de artiesten.
 fig = px.bar(df_artists,
              x='followers.total',
@@ -66,7 +72,8 @@ fig.update_layout(title="Totaal aantal volgers van de top 20 meest gevolgde arti
                   yaxis_title='Artiest namen',
                   xaxis_title="Totaal aantal volgers in Miljoenen<br>Bron:<a href='https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify'>Wikipedia</a>")
 fig.update_xaxes(range=[30_000_000, 90_000_000])
-st.plotly_chart(fig)
+if check1:
+    st.plotly_chart(fig)
 
 # Een lijn plot waarbij de populariteit wordt weergeven van de artiesten.
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
@@ -81,7 +88,8 @@ fig.update_layout(title="Populariteit van de top 20 meest gevolgde artiesten",
                   yaxis_title='Artiest namen',
                   xaxis_title="Populariteit van artiesten in Spotify")
 fig.update_traces(textposition="bottom right")
-st.plotly_chart(fig)
+if check1:
+    st.plotly_chart(fig)
 
 # Een pie plot waarbij het hoofd genre wordt weergeven dan de artiesten.
 df_artists['main_genre'] = None
@@ -100,14 +108,15 @@ fig = px.pie(df_artist_main_genre,
 fig.update_layout(title="De hoofd genres van de top 20 meest gevolgde artiesten")
 fig.update_traces(textposition='inside',
                   textinfo='value+percent')
-st.plotly_chart(fig)
+if check1:
+    st.plotly_chart(fig)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
-st.markdown("## Eigenschappen van de topnummers")
-
-st.markdown("##### In de onderstaande grafiek zijn de ontwikkelingen in audio eigenschappen door de jaren heen te zien. De nummers in deze grafiek zijn de #1 Year-End Songs van Billboard tussen 1946 en 2021.")
+if check2:
+    st.markdown("## Eigenschappen van de topnummers")
+    st.markdown("##### In de onderstaande grafiek zijn de ontwikkelingen in audio eigenschappen door de jaren heen te zien. De nummers in deze grafiek zijn de #1 Year-End Songs van Billboard tussen 1946 en 2021.")
 
 playlistURL = 'https://open.spotify.com/playlist/596TVWnQdvHEeYyKUXkpDL?si=d36cdf733a8945c5'
 
@@ -219,12 +228,14 @@ sliders = [
 
 fig.update_layout({'sliders': sliders})
 
-st.plotly_chart(fig)
+if check2:
+    st.plotly_chart(fig)
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
-st.markdown("## Top 2000")
+if check3:
+    st.markdown("## Top 2000")
 
 df_spotify = pd.read_csv('Spotify-2000.csv')
 print(df_spotify)
@@ -354,8 +365,9 @@ fig.update_layout({'updatemenus': [
 fig.update_layout(showlegend=True)
 fig.update_xaxes(title='genre')
 
-st.markdown("#### Boxplot genres top 2000")
-st.plotly_chart(fig)
+if check3:
+    st.markdown("#### Boxplot genres top 2000")
+    st.plotly_chart(fig)
 
 fig = go.Figure()
 
@@ -389,9 +401,9 @@ fig.update_xaxes(title='genre')
 fig.update_yaxes(title='sum')
 fig.update_traces(marker_line_width=0)
 
-st.markdown("#### Barchart genres top 2000")
-
-st.plotly_chart(fig)
+if check3:
+    st.markdown("#### Barchart genres top 2000")
+    st.plotly_chart(fig)
 
 sum_loudness = sum(df_spotify['Loudness (dB)'])
 
@@ -400,7 +412,8 @@ print(sum_loudness)
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
-st.markdown("## Top 50 nummers buitenland")
+if check4:
+    st.markdown("## Top 50 nummers buitenland")
 
 # Volledig overzicht global top 50 chart
 data_frame = 'top50.csv'
@@ -412,7 +425,8 @@ Artist = pd.DataFrame(df['Artist.Name'].value_counts()).reset_index()
 Artist.columns = ['Artiesten', 'Tracks']
 graph = px.bar(Artist, x='Artiesten', y='Tracks', color='Artiesten',
                title='Weergaven van hoeveelheid tracks in de top 50 chart per artiest')
-st.plotly_chart(graph)
+if check4:
+    st.plotly_chart(graph)
 
 data = pd.read_csv('top50.csv')
 df = pd.DataFrame(data)
@@ -433,7 +447,8 @@ fig = px.pie(data_df, values='Rank', names='Continent', hole=0.6)
 fig.update_layout(annotations=[
     dict(text='"Pie Chart verdeling aantal tracks per continent in de top 50 global"', font_size=16, y=1.1,
          showarrow=False)])
-st.plotly_chart(fig)
+if check4:
+    st.plotly_chart(fig)
 
 # Aantal 'unieke' landen in de top 50 global
 unique_countries = data_df["Country"].unique()
@@ -462,7 +477,8 @@ for i, v in enumerate(height):
     ax.text((i) * 2 - 0.1, v + 0.5, str(v), color='#424242')
 plt.title("Oorsprong liedjes per continent in de Top 50", y=1, fontsize=16)
 
-st.plotly_chart(plt)
+if check4:
+    st.plotly_chart(plt)
 
 # Bar plot over de top 10 tracks die het vaakst voorkomen in de global top 50 chart
 top10_tracks = data_df["Title"].value_counts()[:10].sort_values(ascending=True)
@@ -485,7 +501,8 @@ for i, v in enumerate(height):
     ax.text(v + 1, i, str(v))
 plt.title("Top 10 meest voorkomende tracks", fontsize=16)
 
-st.plotly_chart(plt)
+if check4:
+    st.plotly_chart(plt)
 
 # Alle unieke ALbums in de dataframe op een rij
 data_df["Album"].unique()
