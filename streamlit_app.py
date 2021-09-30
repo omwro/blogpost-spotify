@@ -408,7 +408,8 @@ fig.update_xaxes(title='genre')
 if check3:
     st.markdown("#### Boxplot genres top 2000")
     st.markdown("##### De onderstaande boxplots geven de verschillen in audio eigenschappen tussen verschillende genres weer.")
-    st.markdown("```features = ['Popularity', 'Loudness (dB)', 'Danceability', 'Valence', 'Speechiness', 'Energy']"	
+    st.markdown("```"
+		 "\nfeatures = ['Popularity', 'Loudness (dB)', 'Danceability', 'Valence', 'Speechiness', 'Energy']"	
                  "\ncolors = cycle("
                  "\n	['rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(255, 127, 14)', 'rgb(150, 190, 170)', 'rgb(255, 64, 64)', 'rgb(100, 149, 237)'])"
                  "\nfor feature in features:"
@@ -474,6 +475,12 @@ Artist.columns = ['Artiesten', 'Tracks']
 graph = px.bar(Artist, x='Artiesten', y='Tracks', color='Artiesten',
                title='Weergaven van hoeveelheid tracks in de top 50 chart per artiest')
 if check4:
+    st.markdown("##### De onderstaande bar chart laat de artiesten met de meeste nummers in de top 50 in het buitenland zien.")
+    st.markdown("```"
+		 "\nArtist = pd.DataFrame(df['Artist.Name'].value_counts()).reset_index()"	
+                 "\nArtist.columns = ['Artiesten', 'Tracks']"
+                 "\ngraph = px.bar(Artist, x='Artiesten', y='Tracks', color='Artiesten',"
+                 "\n	title='Weergaven van hoeveelheid tracks in de top 50 chart per artiest')```")
     st.plotly_chart(graph)
 
 # overzicht creeren van de eerste values in de kolommen, om zo ook een overzicht te krijgen van de kolommen
