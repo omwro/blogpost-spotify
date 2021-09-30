@@ -106,7 +106,7 @@ df_artists['main_genre'] = df_artists.apply(lambda artist: "rap" if "rap" in art
 df_artists['main_genre'] = df_artists.apply(lambda artist: "rock" if "rock" in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)
 
 df_artist_main_genre = df_artists['main_genre'].value_counts()
-st.markdown("####### In de onderstaande pie chart is de verdeling van (hoofd)genres binnen de top 20 meest gevolgde artiesten te zien.")
+st.markdown("##### In de onderstaande pie chart is de verdeling van (hoofd)genres binnen de top 20 meest gevolgde artiesten te zien.")
 fig = px.pie(df_artist_main_genre,
              values='main_genre',
              names=df_artist_main_genre.index)
