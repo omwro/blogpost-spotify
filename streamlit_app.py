@@ -128,6 +128,12 @@ if check2:
     st.markdown("##### In de onderstaande grafiek zijn de ontwikkelingen in audio eigenschappen door de jaren heen te zien. De nummers in deze grafiek zijn de #1 Year-End Songs van Billboard tussen 1946 en 2021.")
     st.markdown("```playlistURL = 'https://open.spotify.com/playlist/596TVWnQdvHEeYyKUXkpDL?si=d36cdf733a8945c5'"
                  "\nplaylist = sp.playlist_items(playlistURL)"
+		 "\n"
+                 "\nwith open('data.json', 'w') as f:"
+                 "\n	json.dump(playlist, f)"
+                 "\n" 
+		 "\ndata = json.load(open('data.json'))"
+		 "\ndf = pd.DataFrame(data)"	
                  "\n"
 		 "\nfor x in range(0, totalSongs):"
 		 "\n	pl_item = df.iloc[x]['items']"	
