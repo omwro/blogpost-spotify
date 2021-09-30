@@ -496,9 +496,15 @@ data_df.head(10)
 # Pie Chart verdeling aantal tracks per continent in de top 50 global
 fig = px.pie(data_df, values='Rank', names='Continent', hole=0.6)
 fig.update_layout(annotations=[
-    dict(text='"Pie Chart verdeling aantal tracks per continent in de top 50 global"', font_size=16, y=1.1,
+    dict(text='Pie Chart verdeling aantal tracks per continent in de top 50 global', font_size=16, y=1.1,
          showarrow=False)])
 if check4:
+    st.markdown("##### De onderstaande pie chart laat zien uit welk continent de nummers in de top 50 uit het buitenland komen.")
+    st.markdown("```"
+                 "\nfig = px.pie(data_df, values='Rank', names='Continent', hole=0.6)"
+                 "\nfig.update_layout(annotations=[" 
+		 "\n	dict(text='Pie Chart verdeling aantal tracks per continent in de top 50 global', font_size=16, y=1.1,"
+		 "\n		showarrow=False)])")	
     st.plotly_chart(fig)
 
 # # Aantal 'unieke' landen in de top 50 global
