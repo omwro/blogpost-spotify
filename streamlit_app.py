@@ -62,6 +62,7 @@ display(df_artists.head())
 # ----------------------------------------------------------------------------------------------------------------------
 if check1:
     st.markdown("## Top 20 meest gevolgde artiesten")
+    st.markdown("####### In de onderstaande bar chart zijn de top 20 artiesten te zien met de meeste volgers op Spotify.")
 # Een bar plot waarbij het totaal aantal volgers wordt weergeven van de artiesten.
 fig = px.bar(df_artists,
              x='followers.total',
@@ -77,6 +78,9 @@ if check1:
 
 # Een lijn plot waarbij de populariteit wordt weergeven van de artiesten.
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
+
+#CHECK HIER !!!!
+st.markdown("####### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
 fig = px.line(df_artists,
               x='popularity',
               y=df_artists.index,
@@ -102,6 +106,7 @@ df_artists['main_genre'] = df_artists.apply(lambda artist: "rap" if "rap" in art
 df_artists['main_genre'] = df_artists.apply(lambda artist: "rock" if "rock" in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)
 
 df_artist_main_genre = df_artists['main_genre'].value_counts()
+st.markdown("####### In de onderstaande pie chart is de verdeling van (hoofd)genres binnen de top 20 meest gevolgde artiesten te zien.")
 fig = px.pie(df_artist_main_genre,
              values='main_genre',
              names=df_artist_main_genre.index)
@@ -236,6 +241,7 @@ if check2:
 # ----------------------------------------------------------------------------------------------------------------------
 if check3:
     st.markdown("## Top 2000")
+    
 
 df_spotify = pd.read_csv('Spotify-2000.csv')
 print(df_spotify)
@@ -367,6 +373,7 @@ fig.update_xaxes(title='genre')
 
 if check3:
     st.markdown("#### Boxplot genres top 2000")
+    st.markdown("####### De onderstaande boxplots geven de verschillen in audio eigenschappen tussen verschillende genres weer.")
     st.plotly_chart(fig)
 
 fig = go.Figure()
@@ -403,6 +410,7 @@ fig.update_traces(marker_line_width=0)
 
 if check3:
     st.markdown("#### Barchart genres top 2000")
+    st.markdown("####### De onderstaande bar chart geeft de verschillen in audio eigenschappen tussen verschillende genres weer.")
     st.plotly_chart(fig)
 
 sum_loudness = sum(df_spotify['Loudness (dB)'])
