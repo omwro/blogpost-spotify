@@ -452,6 +452,12 @@ fig.update_traces(marker_line_width=0)
 if check3:
     st.markdown("#### Barchart genres top 2000")
     st.markdown("##### De onderstaande bar chart geeft de verschillen in audio eigenschappen tussen verschillende genres weer.")
+    st.markdown("```"
+		 "\nfig = go.Figure()"	
+                 "\ncolors = cycle(['rgb(227, 119, 194)', 'rgb(127, 127, 127)', 'rgb(255, 127, 14)', 'rgb(150, 190, 170)', 'rgb(255, 64, 64)','rgb(100, 149, 237)'])"
+                 "\nfor feature in features :"
+                 "\n	fig.add_trace(go.Bar(x=df_spotify['Genre category'], y=genres1,"
+                 "\n	name=feature, marker_color=next(colors)))```") 
     st.plotly_chart(fig)
 
 sum_loudness = sum(df_spotify['Loudness (dB)'])
