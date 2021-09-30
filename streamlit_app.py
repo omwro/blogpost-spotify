@@ -23,8 +23,10 @@ st.markdown("We maken gebruik van de "
             "om gemakkelijk via python de requesten te sturen naar de spotify server. Vervolgens gebruiken we "
             "[Wikipedia](https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify) "
             "om de top 20 artiesten te vinden en daarvan een speciaal gemaakt csv file te maken. Daarnaast gebruiken "
-            "we ook een dataset van [kaggle](https://www.kaggle.com/iamsumat/spotify-top-2000s-mega-dataset) "
-            "voor de top 2000 nummer van altijd.")
+            "we ook een dataset van "
+            "[kaggle](https://www.kaggle.com/iamsumat/spotify-top-2000s-mega-dataset) "
+            "voor de top 2000 nummer van altijd en [Kaggle](https://www.kaggle.com/leonardopena/top50spotify2019) "
+            "voor het ophalen van de top 50 buitenlandse nummers.")
 
 st.markdown("#### Kwaliteit")
 st.markdown("We maken gebruik van de officiële spotify api en weten dat dit aan hoge kwaliteitstandaarden houdt. "
@@ -424,9 +426,9 @@ if check4:
     st.markdown("## Top 50 nummers buitenland")
 
 # Volledig overzicht global top 50 chart
-data_frame = 'top50.csv'
-df = data_frame
-pd.read_csv('top50.csv')
+data = pd.read_csv('top50.csv')
+df = pd.DataFrame(data)
+df.describe()
 
 # Weergaven van hoeveelheid tracks in de top 50 chart per artiest
 Artist = pd.DataFrame(df['Artist.Name'].value_counts()).reset_index()
@@ -436,16 +438,12 @@ graph = px.bar(Artist, x='Artiesten', y='Tracks', color='Artiesten',
 if check4:
     st.plotly_chart(graph)
 
-data = pd.read_csv('top50.csv')
-df = pd.DataFrame(data)
-df.describe()
-
 # overzicht creeren van de eerste values in de kolommen, om zo ook een overzicht te krijgen van de kolommen
 # die in de csv file zitten
 df.head()
 
-data_df = pd.read_csv("Top50chartbuitenland.csv")
-pd.read_csv('Top50chartbuitenland.csv')
+data_df = pd.read_csv("SpotifyTopSongsByCountry - May 2020.csv")
+pd.read_csv("SpotifyTopSongsByCountry - May 2020.csv")
 
 # Overzicht maken van de top 10 tracks in de global top 50 charts
 data_df.head(10)
@@ -458,59 +456,58 @@ fig.update_layout(annotations=[
 if check4:
     st.plotly_chart(fig)
 
-# Aantal 'unieke' landen in de top 50 global
-unique_countries = data_df["Country"].unique()
-unique_countries = unique_countries[unique_countries != "Global"]
-unique_countries
-
-# Aantal 'unieke' continenten in de top 50 global
-data_df["Continent"].unique()
-
-# Bar plot oorsprong tracks per continent in de global top 50 chart
-continent_value_counts = (data_df["Continent"].value_counts() / 50).astype("int32")
-continent_value_counts = continent_value_counts.drop("Global")
-height = continent_value_counts.values
-bars = continent_value_counts.index
-y_pos = range(0, 12, 2)
-
-fig = plt.figure(figsize=[13, 7], frameon=False)
-ax = fig.gca()
-ax.grid()
-
-plt.bar(y_pos, height, color=['orange', 'red', 'green', 'blue', 'cyan', 'yellow'], width=1.2)
-
-plt.xticks(y_pos, bars, color="#424242")
-plt.yticks(color="#424242")
-for i, v in enumerate(height):
-    ax.text((i) * 2 - 0.1, v + 0.5, str(v), color='#424242')
-plt.title("Oorsprong liedjes per continent in de Top 50", y=1, fontsize=16)
-
-if check4:
-    st.plotly_chart(plt)
-
-# Bar plot over de top 10 tracks die het vaakst voorkomen in de global top 50 chart
-top10_tracks = data_df["Title"].value_counts()[:10].sort_values(ascending=True)
-height = top10_tracks.values
-bars = top10_tracks.index
-y_pos = np.arange(len(bars))
-
-fig = plt.figure(figsize=[11, 7], frameon=False)
-ax = fig.gca()
-
-plt.barh(y_pos, height,
-         color=['orange', 'red', 'green', 'blue', 'cyan', 'yellow', 'purple', 'magenta', 'brown', 'lightblue'],
-         height=0.8)
-
-plt.xticks()
-plt.yticks(y_pos, bars)
-plt.xlabel("Number of occurances in charts")
-
-for i, v in enumerate(height):
-    ax.text(v + 1, i, str(v))
-plt.title("Top 10 meest voorkomende tracks", fontsize=16)
-
-if check4:
-    st.plotly_chart(plt)
-
-# Alle unieke ALbums in de dataframe op een rij
-data_df["Album"].unique()
+# # Aantal 'unieke' landen in de top 50 global
+# unique_countries = data_df["Country"].unique()
+# unique_countries = unique_countries[unique_countries != "Global"]
+#
+# # Aantal 'unieke' continenten in de top 50 global
+# data_df["Continent"].unique()
+#
+# # Bar plot oorsprong tracks per continent in de global top 50 chart
+# continent_value_counts = (data_df["Continent"].value_counts() / 50).astype("int32")
+# continent_value_counts = continent_value_counts.drop("Global")
+# height = continent_value_counts.values
+# bars = continent_value_counts.index
+# y_pos = range(0, 12, 2)
+#
+# fig = plt.figure()
+# ax = fig.gca()
+# ax.grid()
+#
+# plt.bar(y_pos, height, color=['orange', 'red', 'green', 'blue', 'cyan', 'yellow'], width=1.2)
+#
+# plt.xticks(y_pos, bars, color="#424242")
+# plt.yticks(color="#424242")
+# for i, v in enumerate(height):
+#     ax.text((i) * 2 - 0.1, v + 0.5, str(v), color='#424242')
+# plt.title("Oorsprong liedjes per continent in de Top 50", y=1, fontsize=16)
+#
+# if check4:
+#     st.plotly_chart(plt)
+#
+# # Bar plot over de top 10 tracks die het vaakst voorkomen in de global top 50 chart
+# top10_tracks = data_df["Title"].value_counts()[:10].sort_values(ascending=True)
+# height = top10_tracks.values
+# bars = top10_tracks.index
+# y_pos = np.arange(len(bars))
+#
+# fig = plt.figure(figsize=[11, 7], frameon=False)
+# ax = fig.gca()
+#
+# plt.barh(y_pos, height,
+#          color=['orange', 'red', 'green', 'blue', 'cyan', 'yellow', 'purple', 'magenta', 'brown', 'lightblue'],
+#          height=0.8)
+#
+# plt.xticks()
+# plt.yticks(y_pos, bars)
+# plt.xlabel("Number of occurances in charts")
+#
+# for i, v in enumerate(height):
+#     ax.text(v + 1, i, str(v))
+# plt.title("Top 10 meest voorkomende tracks", fontsize=16)
+#
+# if check4:
+#     st.plotly_chart(plt)
+#
+# # Alle unieke ALbums in de dataframe op een rij
+# data_df["Album"].unique()
