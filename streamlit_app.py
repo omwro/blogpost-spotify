@@ -63,7 +63,12 @@ display(df_artists.head())
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 if check1:
-    st.markdown("## Top 20 meest gevolgde artiesten")
+    st.markdown("## Top 20 meest gevolgde artiesten:")
+    st.markdown("Request for receiving artists data from Spotipy:"
+                "\n```\nartist_ids = pd.read_csv('top20followedartists.csv').columns"
+                "\nsp_artists = sp.artists(artist_ids)['artists']"
+                "\ndf_artists = pd.json_normalize(sp_artists).set_index('name').sort_values('followers.total')")
+    st.write(df_artists.head())
     st.markdown("##### In de onderstaande bar chart zijn de top 20 artiesten te zien met de meeste volgers op Spotify.")
 # Een bar plot waarbij het totaal aantal volgers wordt weergeven van de artiesten.
 fig = px.bar(df_artists,
@@ -79,7 +84,7 @@ if check1:
     st.plotly_chart(fig)
     st.markdown("```\nfig = px.bar(df_artists, x='followers.total', y=df_artists.index, color='followers.total',labels={'followers.total': 'Totaal aantal volgers'})"
                 "\nfig.update_layout(title='Totaal aantal volgers van de top 20 meest gevolgde artiesten', yaxis_title='Artiest namen', xaxis_title='Totaal aantal volgers in Miljoenen<br>Bron:<a href='https://en.wikipedia.org/wiki/List_of_most-streamed_artists_on_Spotify'>Wikipedia</a>')"
-                "\nfig.update_xaxes(range=[30_000_000, 90_000_000])```")
+                "\nfig.update_xaxes(range=[30_000_000, 90_000_000])")
     st.markdown("##### In de onderstaande grafiek is de populariteit op Spotify van de top 20 meest gevolgde artiesten te zien.")
 # Een lijn plot waarbij de populariteit wordt weergeven van de artiesten.
 # Het verticale rechte lijn is het gemiddelde van de weergegeven artiesten.
@@ -97,7 +102,10 @@ fig.update_layout(title="Populariteit van de top 20 meest gevolgde artiesten",
 fig.update_traces(textposition="bottom right")
 if check1:
     st.plotly_chart(fig)
-    # st.markdown("``````")
+    st.markdown("```\nfig = px.line(df_artists, x='popularity', y=df_artists.index, text='popularity', height=500)"
+                "\nfig.add_vline(df_artists['popularity'].mean(), annotation_text='Gemiddelde', annotation_position='bottom right')"
+                "\nfig.update_layout(title='Populariteit van de top 20 meest gevolgde artiesten', yaxis_title='Artiest namen', xaxis_title='Populariteit van artiesten in Spotify')"
+                "\nfig.update_traces(textposition='bottom right')")
 
 # Een pie plot waarbij het hoofd genre wordt weergeven dan de artiesten.
 df_artists['main_genre'] = None
@@ -119,6 +127,18 @@ fig.update_traces(textposition='inside',
                   textinfo='value+percent')
 if check1:
     st.plotly_chart(fig)
+    st.markdown("```\ndf_artists['main_genre'] = None"
+                "\ndf_artists['main_genre'] = df_artists.apply(lambda artist: 'hip hop' if 'hip hop' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artists['main_genre'] = df_artists.apply(lambda artist: 'hip hop' if 'reggaeton' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artsts['main_genre'] = df_artists.apply(lambda artist: 'pop' if 'pop' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artists['main_genre'] = df_artists.apply(lambda artist: 'pop' if 'k-pop' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artists['main_genre'] = df_artists.apply(lambda artist: 'pop' if 'desi pop' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artists[main_genre'] = df_artists.apply(lambda artist: 'rap' if 'rap' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artists['main_genre'] = df_artists.apply(lambda artist: 'rock' if 'rock' in artist['genres'] and artist['main_genre'] is None else artist['main_genre'], axis=1)"
+                "\ndf_artist_main_genre = df_artists['main_genre'].value_counts()\n"
+                "\nfig = px.pie(df_artist_main_genre, values='main_genre', names=df_artist_main_genre.index)"
+                "\nfig.update_layout(title='De hoofd genres van de top 20 meest gevolgde artiesten')"
+                "\nfig.update_traces(textposition='inside', textinfo='value+percent')")
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
