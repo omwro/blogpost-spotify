@@ -47,7 +47,7 @@ check4 = st.checkbox('Top 50 nummers buitenland', True)
 # Maak een Spotify object instantie van de SpotiPy package.
 sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(
     client_id='5f222d8ae8c744f6815d314bba7709ab',
-    client_secret='2e90b0c27de84414ac5a7847d8bc73c9'
+    client_secret='a0ce86423a63492fbc8f8c609ff51d83'
 ))
 # Lees the id's van de top 20 meest gevolgde artiesten van Spotify in een csv bestand.
 artist_ids = pd.read_csv('top20followedartists.csv').columns
